@@ -97,6 +97,23 @@ def telegram():
     
     return(render_template("telegram.html", status=status))
 
+@app.route("/stop_telegram",methods=["GET","POST"])
+def stop_telegram():
+    # Copy this link from render, in the web service section
+    domain_url = 'https://module5-1-8nxh.onrender.com'
+
+    # The following line is used to delete the existing webhook URL for the Telegram bot
+    delete_webhook_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/deleteWebhook"
+    requests.post(delete_webhook_url, json={"url": domain_url, "drop_pending_updates": True})
+
+    if webhook_response.status_code == 200:
+        # set status message
+        status = "The telegram bot has stopped. Please check the logs. @dsai_eve_ft1_bot"
+    else:
+        status = "Failed to start the telegram bot. Please check the logs."
+    
+    return(render_template("telegram.html", status=status))
+
 @app.route("/webhook",methods=["GET","POST"])
 def webhook():
     # This endpoint will be called by Telegram when a new message is received
