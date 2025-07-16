@@ -78,6 +78,7 @@ def prediction():
 
 @app.route("/telegram",methods=["GET","POST"])
 def telegram():
+    # Copy this link from render, in the web service section
     domain_url = 'https://module5-1-8nxh.onrender.com'
 
     # The following line is used to delete the existing webhook URL for the Telegram bot
